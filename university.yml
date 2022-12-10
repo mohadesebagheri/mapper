@@ -1,11 +1,11 @@
-alpha_two_code: code
+code: alpha_two_code
 
 name: name
 
-state-province: province
+province: state-province
 
 country: country
 
-web_pages: homepage
+homepage: web_pages
 
 domains: domains

@@ -1,17 +1,20 @@
-const JsonConverter = require('./jsonConverter')
-const XmlConverter = require('./xmlConverter')
+class Converter{
+    constructor(template) {
+        this.template = template;
+    }
 
-class ConverterFactory {
-    create(type) {
-        switch(type) {
-            case 'XML':
-                return new XmlConverter();
-            case 'JSON':
-                return new JsonConverter();
-            default:
-                return new Error('format not supported');
+    convert(source){
+        const item = {}
+        for (const [key, value] of Object.entries(this.template)) {
+            const srcValue = this.getValue(source,value)
+            item[key] = srcValue
         }
+        return item
+    }
+
+    getValue(item, key){
+        return item[key]
     }
 }
 
-module.exports = ConverterFactory;
+module.exports = Converter;
