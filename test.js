@@ -2,6 +2,7 @@ const axios = require('axios')
 const assert = require('assert')
 const Parser = require('./parser')
 const JsonConverter = require('./jsonConverter')
+const expect = require('chai').expect
 
 describe('Testing - simple mapping', function() {
     let fileAddress, api, data, parser, result, jConverter;
@@ -26,5 +27,50 @@ describe('Testing - simple mapping', function() {
             }
         ]
         assert.deepStrictEqual(mappedData,expectedResult)
+    });
+});
+
+describe('Testing - map nested object fields', function() {
+    let data, jConverter, map,parser;
+    before(async function () {
+        fileAddress = './profile.yml'
+        parser = new Parser(fileAddress)
+        map = parser.parse()
+        data =   {
+            active: true,
+            balance: '$1,273.07',
+            person:{
+                age: 32,
+                phone: '+1 (955) 541-2541',
+                country: "some country",
+                address: '740 Debevoise Avenue, Silkworth, Oregon, 2792'
+            },
+            friends: [
+                {
+                    id: 0,
+                    name: 'Courtney Medina',
+                },
+                {
+                    id: 1,
+                    name: 'Hodges Avery',
+                },
+                {
+                    id: 2,
+                    name: 'Blanchard Hyde',
+                },
+            ],
+        }
+        jConverter = new JsonConverter(map)
+    })
+    it('2. Profile', function() {
+        const mappedData = jConverter.map(data)
+        const expectation =[
+            {
+                isActive: true,
+                currentFriends: data.friends,
+                information: '740 Debevoise Avenue, Silkworth, Oregon, 2792'
+            }
+        ]
+        assert.deepStrictEqual(expectation, mappedData);
     });
 });

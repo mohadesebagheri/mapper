@@ -13,8 +13,13 @@ class Converter{
     }
 
     getValue(item, key){
-        return item[key]
+        return key in item ? item[key]
+            : Object.values(item).reduce((acc, val) => {
+                if (acc !== undefined) return acc;
+                if (typeof val === 'object' && !Array.isArray(val) && val !== null) return this.getValue(val, key);
+            }, undefined);
     }
+
 }
 
 module.exports = Converter;
