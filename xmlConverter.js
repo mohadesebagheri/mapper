@@ -7,7 +7,19 @@ class XmlConverter {
 
     convert2json(apiResult) {
         const jsonResult = XMLParser.toJson(apiResult);
-        return JSON.parse(jsonResult)
+        return this.parseNested(jsonResult)
+    }
+
+    parseNested(str) {
+        try {
+            return JSON.parse(str, (_, val) => {
+                if (typeof val === 'string')
+                    return this.parseNested(val)
+                return val
+            })
+        } catch (exc) {
+            return str
+        }
     }
 
     map(apiResult) {

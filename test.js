@@ -93,7 +93,7 @@ describe('Testing - simple mapping - XML', function () {
             name: 'Empire Burlesque',
             singer: 'Bob Dylan',
             country: 'USA',
-            amount: '10.90'
+            amount: 10.90
         }]
         assert.deepStrictEqual(expectation, mappedData);
     });
@@ -130,25 +130,24 @@ describe('Testing - nested mapping - XML', function () {
               <phone>+1 (955) 541-2541</phone>
            </person>
         </root>`
-        xmlConverter = new ConverterFactory().create(getXMLFormatKeyword(),map)
+        xmlConverter = new ConverterFactory().create(getXMLFormatKeyword(), map)
     })
     it('1. profile - XML', function () {
         const mappedData = xmlConverter.map(data)
         const expectation = [{
             isActive: true,
-            currentFriends: [{
-                id: 0,
-                name: 'Courtney Medina',
+            currentFriends: {
+                friend: [{
+                    id: 0,
+                    name: "Courtney Medina"
+                }, {
+                    id: 1,
+                    name: "Hodges Avery"
+                }, {
+                    id: 2,
+                    name: "Blanchard Hyde"
+                }]
             },
-            {
-                id: 1,
-                name: 'Hodges Avery',
-            },
-            {
-                id: 2,
-                name: 'Blanchard Hyde',
-            },
-        ],
             information: '740 Debevoise Avenue, Silkworth, Oregon, 2792'
         }]
         assert.deepStrictEqual(expectation, mappedData);
