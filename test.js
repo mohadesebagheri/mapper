@@ -31,7 +31,7 @@ describe('Testing - simple mapping', function() {
 });
 
 describe('Testing - map nested object fields', function() {
-    let data, jConverter, map,parser;
+    let data, jConverter, map,parser,fileAddress;
     before(async function () {
         fileAddress = './profile.yml'
         parser = new Parser(fileAddress)
