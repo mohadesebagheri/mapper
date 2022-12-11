@@ -17,6 +17,12 @@
     "yaml": "^2.1.3"
   },
   "releaseNote": {
+    "1.1.0": [
+      {
+        "type": "feature",
+        "title": "added XMLConverter"
+      }
+    ],
     "1.0.0": [
       {
         "type": "feature",

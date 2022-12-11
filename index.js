@@ -1,1 +1,0 @@
-const ConverterFactory = require('./converter')
