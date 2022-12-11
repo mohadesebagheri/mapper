@@ -5,7 +5,8 @@ class ConverterFactory {
     create(type,template) {
         switch(type) {
             case 'XML':
-                return new XmlConverter(template);
+                const jsonConverter =  new JsonConverter(template)
+                return new XmlConverter(jsonConverter);
             case 'JSON':
                 return new JsonConverter(template);
             default:
