@@ -2,12 +2,12 @@ const JsonConverter = require('./jsonConverter')
 const XmlConverter = require('./xmlConverter')
 
 class ConverterFactory {
-    create(type) {
+    create(type,template) {
         switch(type) {
             case 'XML':
-                return new XmlConverter();
+                return new XmlConverter(template);
             case 'JSON':
-                return new JsonConverter();
+                return new JsonConverter(template);
             default:
                 return new Error('format not supported');
         }

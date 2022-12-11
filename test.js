@@ -1,8 +1,8 @@
 const axios = require('axios')
 const assert = require('assert')
 const Parser = require('./parser')
-const JsonConverter = require('./jsonConverter')
-const expect = require('chai').expect
+const ConverterFactory = require('./converterFactory')
+const {getJsonFormatKeyword, getXMLFormatKeyword} = require('./constants')
 
 describe('Testing - simple mapping', function() {
     let fileAddress, api, data, parser, result, jConverter;
@@ -12,7 +12,7 @@ describe('Testing - simple mapping', function() {
         data = await axios.get(api)
         parser = new Parser(fileAddress)
         result = parser.parse()
-        jConverter = new JsonConverter(result)
+        jConverter = new ConverterFactory().create(getJsonFormatKeyword(),result)
     })
     it('1. University', function() {
         const mappedData = jConverter.map(data.data[0])
@@ -60,7 +60,7 @@ describe('Testing - map nested object fields', function() {
                 },
             ],
         }
-        jConverter = new JsonConverter(map)
+        jConverter = new ConverterFactory().create(getJsonFormatKeyword(),map)
     })
     it('2. Profile', function() {
         const mappedData = jConverter.map(data)
